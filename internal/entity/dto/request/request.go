@@ -9,7 +9,7 @@ Modified: !date!
 package request
 
 type User struct {
-	ID          int    `json:"id"`
+	Id          string `json:"id"`
 	Username    string `json:"username" validate:"required"`
 	Email       string `json:"email" validate:"required"`
 	PhoneNumber string `json:"phone_number" validate:"required"`
@@ -21,7 +21,7 @@ type Login struct {
 }
 
 type Payment struct {
-	SenderID    int     `json:"sender_id" validate:"required"`
-	RecipientID int     `json:"recipient_id" validate:"required"`
+	SenderID    string  `json:"sender_id" validate:"required"`
+	RecipientID string  `json:"recipient_id" validate:"required"`
 	Amount      float64 `json:"amount" validate:"required"`
 }

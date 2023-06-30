@@ -5,7 +5,7 @@
             "username": "john",
             "name": "John Pirman",
             "email": "john@mail.com",
-            "password": "$2a$12$TaOv6gIEDaY5fXZF.kvrq.J1mIBYkJZXPs4IzNNrh47z9uWcs.Apa"
+            "password": "$2a$12$kAQM2V68rG2ldVBzh7CZpuK4Ebi/iQyTof70cjP31p19rYzpK2FMi"
         },
         {
             "id": "2",
@@ -13,6 +13,13 @@
             "name": "Doe Sugest",
             "email": "doe@mail.com",
             "password": "$2a$12$9RU26t46.ZRRXAQsG34E8umkWt74Y6F00Kk6TBp6DYi4K/rp6J58y"
+        },
+        {
+            "id": "3",
+            "username": "Victor",
+            "name": "Victor Arbit",
+            "email": "victor@mail.com",
+            "password": "$2a$12$lAd8D./3iz4aMsncheSdA.aWfK985viqmYLDqwXxb.WCw.g7Cu11a"
         }
     ]
 }

@@ -10,7 +10,9 @@ package repository
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
+	"log"
 	"os"
 
 	"github.com/satriabagusi/simplebank/internal/entity"
@@ -20,6 +22,7 @@ import (
 type UserRepository interface {
 	FindUserByUsernameLogin(string) (*entity.User, error)
 	FindByUsername(string) (*response.User, error)
+	FindById(string) (*entity.User, error)
 }
 
 type userRepository struct {
@@ -30,7 +33,7 @@ func NewUserRepository() *userRepository {
 }
 
 func (r *userRepository) FindByUsername(username string) (*response.User, error) {
-	var user entity.Users
+	var user entity.Data
 
 	getJson, err := os.Open("data/user.json")
 	if err != nil {
@@ -45,10 +48,10 @@ func (r *userRepository) FindByUsername(username string) (*response.User, error)
 
 	res := response.User{}
 
-	for i := 0; i < len(user.User); i++ {
-		if user.User[i].Username == username {
-			res.Username = user.User[i].Username
-			res.Email = user.User[i].Email
+	for i := 0; i < len(user.Users); i++ {
+		if user.Users[i].Username == username {
+			res.Username = user.Users[i].Username
+			res.Email = user.Users[i].Email
 		}
 	}
 
@@ -56,7 +59,47 @@ func (r *userRepository) FindByUsername(username string) (*response.User, error)
 }
 
 func (r *userRepository) FindUserByUsernameLogin(username string) (*entity.User, error) {
-	var user entity.Users
+
+	getJson, err := os.Open("data/user.json")
+	if err != nil {
+		log.Println("Error opening json file:", err)
+		return nil, err
+	}
+	defer getJson.Close()
+
+	byteVal, err := io.ReadAll(getJson)
+	if err != nil {
+		log.Println("Error reading json file:", err)
+		return nil, err
+	}
+
+	var data struct {
+		Users []entity.User `json:"users"`
+	}
+	if err := json.Unmarshal(byteVal, &data); err != nil {
+		log.Println("Error unmarshalling json:", err)
+		return nil, err
+	}
+
+	log.Println(data)
+
+	res := entity.User{}
+
+	for i := 0; i < len(data.Users); i++ {
+		if data.Users[i].Username == username {
+			res.Id = data.Users[i].Id
+			res.Username = data.Users[i].Username
+			res.Email = data.Users[i].Email
+			res.Password = data.Users[i].Password
+		}
+	}
+
+	return &res, nil
+
+}
+
+func (r *userRepository) FindById(id string) (*entity.User, error) {
+	var user entity.Data
 
 	getJson, err := os.Open("data/user.json")
 	if err != nil {
@@ -71,14 +114,13 @@ func (r *userRepository) FindUserByUsernameLogin(username string) (*entity.User,
 
 	res := entity.User{}
 
-	for i := 0; i < len(user.User); i++ {
-		if user.User[i].Username == username {
-			res.Username = user.User[i].Username
-			res.Password = user.User[i].Password
-			res.Email = user.User[i].Email
+	for i := 0; i < len(user.Users); i++ {
+		if user.Users[i].Id == id {
+			res.Id = user.Users[i].Id
+			res.Username = user.Users[i].Username
+			res.Email = user.Users[i].Email
 		}
 	}
 
 	return &res, nil
-
 }

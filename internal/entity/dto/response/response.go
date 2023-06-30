@@ -23,8 +23,9 @@ type User struct {
 
 type TransactionHistory struct {
 	TransactionId        string    `json:"transaction_id"`
-	SenderId             int       `json:"sender_id"`
-	RecipientId          int       `json:"recipient_id"`
+	SenderId             string    `json:"sender_id"`
+	RecipientId          string    `json:"recipient_id"`
+	Amount               float32   `json:"amount"`
 	TimestampTransaction time.Time `json:"timestamp_transaction"`
 }
 

@@ -8,9 +8,7 @@ Modified: !date!
 
 package config
 
-import (
-	"github.com/satriabagusi/simplebank/utility"
-)
+import "github.com/satriabagusi/simplebank/pkg/utils"
 
 type Config struct {
 	ServerAddress string
@@ -21,5 +19,5 @@ func NewConfig() *Config {
 }
 
 func (c *Config) Load() {
-	c.ServerAddress = utility.GetEnv("SERVER_ADDRESS")
+	c.ServerAddress = utils.GetEnv("SERVER_ADDRESS")
 }

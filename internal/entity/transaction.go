@@ -8,11 +8,12 @@ Modified: !date!
 
 package entity
 
+import "time"
+
 type Transaction struct {
-	ID           string  `json:"id"`
-	SenderId     string  `json:"sender_id"`
-	ReceiverId   string  `json:"receiver_id"`
-	MerchantName string  `json:"merchant_name"`
-	Amount       float64 `json:"amount"`
-	Timestamp    string  `json:"timestamp"`
+	ID         string    `json:"id"`
+	SenderId   string    `json:"sender_id"`
+	ReceiverId string    `json:"receiver_id"`
+	Amount     float64   `json:"amount"`
+	Timestamp  time.Time `json:"timestamp"`
 }

@@ -1,0 +1,3 @@
+{"id":"log-%!(EXTRA string=)","log_name":"Auth","log_status":"success","log_message":"User with ID:1 trying to logged in and was successfully logged in","timestamp":"2023-06-30T20:14:54.7510714+07:00"},
+{"id":"log-%!(EXTRA string=灆)","log_name":"Auth","log_status":"success","log_message":"User with ID:1 trying to logged in and was successfully logged in","timestamp":"2023-06-30T20:21:18.3474924+07:00"}
+{"id":"log-%!(EXTRA string=མ)","log_name":"Auth","log_status":"success","log_message":"User with ID:1 trying to logged in and was successfully logged in","timestamp":"2023-06-30T20:23:01.2438631+07:00"},

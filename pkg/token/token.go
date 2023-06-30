@@ -10,10 +10,12 @@ package token
 
 import (
 	"fmt"
+	"log"
 	"strconv"
+	"strings"
 	"time"
 
-	"github.com/golang-jwt/jwt/v5"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/satriabagusi/simplebank/internal/entity"
 	"github.com/satriabagusi/simplebank/pkg/utils"
 )
@@ -24,48 +26,53 @@ var (
 )
 
 type MyCustomClaims struct {
-	ID       int    `json:"id"`
+	ID       string `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
-	jwt.RegisteredClaims
+	jwt.StandardClaims
 }
 
-func CreateToken(user *entity.User) (string, error) {
+func CreateToken(user *entity.User, duration time.Duration) (string, error) {
 	claims := MyCustomClaims{
-		user.ID,
+		user.Id,
 		user.Username,
 		user.Email,
-		jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expireTimeInt) * time.Minute)),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			NotBefore: jwt.NewNumericDate(time.Now()),
+		jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+			IssuedAt:  time.Now().Unix(),
 		},
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, err := token.SignedString(mySigningKey)
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := jwtToken.SignedString(mySigningKey)
+	if err != nil {
+		return "", err
+	}
 
-	return ss, err
+	return token, nil
 }
 
 func ValidateToken(tokenString string) (any, error) {
+	// Remove "Bearer " prefix from tokenString
+	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+
 	token, err := jwt.ParseWithClaims(tokenString, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return mySigningKey, nil
 	})
 
 	if err != nil {
+		log.Println("Failure to parse token:", err)
 		return nil, fmt.Errorf("Unauthorized")
 	}
 
-	claims, ok := token.Claims.(*MyCustomClaims)
-
-	if !ok || !token.Valid {
+	if !token.Valid {
+		log.Println("Token is not valid")
 		return nil, fmt.Errorf("Unauthorized")
 	}
 
-	return claims, nil
+	return token, nil
 }
 
-func Valid() error {
+// func Valid() error {
 
-}
+// }

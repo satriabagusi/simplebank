@@ -16,6 +16,7 @@ import (
 
 type UserUsecase interface {
 	FindByUsername(string) (*response.User, error)
+	FindById(string) (*entity.User, error)
 	Login(string) (*entity.User, error)
 }
 
@@ -31,6 +32,10 @@ func NewUserUsecase(userRepository repository.UserRepository) UserUsecase {
 
 func (u *userUsecase) FindByUsername(username string) (*response.User, error) {
 	return u.userRepository.FindByUsername(username)
+}
+
+func (u *userUsecase) FindById(id string) (*entity.User, error) {
+	return u.userRepository.FindById(id)
 }
 
 func (u *userUsecase) Login(username string) (*entity.User, error) {

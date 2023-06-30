@@ -9,15 +9,17 @@ Modified: !date!
 package middleware
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	tokenJwt "github.com/satriabagusi/simplebank/token"
+	"github.com/satriabagusi/simplebank/pkg/token"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		tokenString := ctx.GetHeader("Authorization")
+		log.Println(tokenString)
 		if tokenString == "" {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code":    http.StatusUnauthorized,
@@ -27,7 +29,8 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		payload, err := tokenJwt.ValidateToken(tokenString)
+		payload, err := token.ValidateToken(tokenString)
+		log.Println(err)
 		if err != nil {
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code":    http.StatusUnauthorized,

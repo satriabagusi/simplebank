@@ -8,12 +8,12 @@ Modified: !date!
 
 package entity
 
-type Users struct {
-	User []User `json:"user"`
+type Data struct {
+	Users []User `json:"user"`
 }
 
 type User struct {
-	ID       int    `json:"id"`
+	Id       string `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`

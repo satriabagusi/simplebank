@@ -32,10 +32,13 @@ func (s *Server) Initialize(connstr string) error {
 	userRepo := repository.NewUserRepository()
 	userUsecase := usecase.NewUserUsecase(userRepo)
 
+	transactionRepo := repository.NewTransactionRepository()
+	transactionUsecase := usecase.NewTransactionUsecase(transactionRepo)
+
 	r := gin.Default()
 	api := r.Group("api/v1")
 	router.NewUserRouter(api, userUsecase)
-
+	router.NewTransactionRouter(api, transactionUsecase, userUsecase)
 	s.router = r
 	return nil
 }
