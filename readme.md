@@ -7,15 +7,15 @@ Modified: !date!
 -->
 
 
-# Simple Parking Apps using .NET 6
+# Simple Bank API using GO 
 
-This Project created using .NET SDK Version 6.0
+![Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1280px-Go_Logo_Blue.svg.png)
 
 
 
 ## Installation
 1. Firstly, Clone or Download this Repo to your local directory
-2. You need .NET SDK (https://dotnet.microsoft.com/en-us/download)
+2. You need GO (https://go.dev/doc/install)
 3. Open terminal from your IDE or direct open terminal from local directory  
 
     
