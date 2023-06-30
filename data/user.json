@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "john",
+            "name": "John Pirman",
+            "email": "john@mail.com",
+            "password": "$2a$12$TaOv6gIEDaY5fXZF.kvrq.J1mIBYkJZXPs4IzNNrh47z9uWcs.Apa"
+        },
+        {
+            "id": "2",
+            "username": "Doe",
+            "name": "Doe Sugest",
+            "email": "doe@mail.com",
+            "password": "$2a$12$9RU26t46.ZRRXAQsG34E8umkWt74Y6F00Kk6TBp6DYi4K/rp6J58y"
+        }
+    ]
+}
